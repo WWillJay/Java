@@ -1,7 +1,5 @@
 package com.example.demo.thread;
 
-import static java.lang.Thread.sleep;
-
 /**
  * 多线程创建
  * 方式一
@@ -12,57 +10,24 @@ import static java.lang.Thread.sleep;
  */
 public class ThreadTest {
     public static void main(String[] args) {
-//        MyFirstThread myFirstThread = new MyFirstThread();
-//        myFirstThread.start();
-//        for (int i = 0; i < 100; i++) {
-//            try {
-//                sleep(1);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            System.out.println(Thread.currentThread().getName());
-//        }
-//
-//        new Thread(){
-//            @Override
-//            public void run() {
-//                System.out.println(Thread.currentThread().getName());
-//            }
-//        }.start();
-        // 3.创建实现类对象
-        MySecondThread mySecondThread = new MySecondThread();
-        // 4.将对象作为参数传入Thread类的构造器中，来创建Thread类的对象
-        Thread thread = new Thread(mySecondThread);
-        // 5.通过Thread类的对象调用start()
-        thread.start();
+        ThreadDemo threadDemo = new ThreadDemo();
+        ThreadDemo threadDemo2 = new ThreadDemo();
+        ThreadDemo threadDemo3 = new ThreadDemo();
+        threadDemo.start();
+        threadDemo2.start();
+        threadDemo3.start();
     }
 }
 
-class MyFirstThread extends Thread{
-    @Override
-    public void run() {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(Thread.currentThread().getName());
-        }
-    }
+class ThreadDemo extends Thread {
+
+    private static int count = 100;
 
     @Override
-    public State getState() {
-        return super.getState();
-    }
-}
-
-/**
- * 1.创建一个实现Runnable接口的类
- */
-class MySecondThread implements Runnable{
-    /**
-     * 2.实现Runnable接口的抽象方法run()
-     */
-    @Override
     public void run() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println(Thread.currentThread().getName());
+        while (count > 0) {
+            System.out.println(Thread.currentThread().getName() + " : " + count);
+            count--;
         }
     }
 }
