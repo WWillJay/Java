@@ -2,7 +2,7 @@ package com.example.demo.thread;
 
 /**
  * 多线程创建
- * 方式一
+ * 方式一：继承Thread类
  * 1.创建一个继承于Thread类的子类
  * 2.重写Thread类的run():此线程的业务逻辑
  * 3.创建子类对象
@@ -23,11 +23,35 @@ class ThreadDemo extends Thread {
 
     private static int count = 100;
 
+    /**
+     * 继承Thread的多线程中的对象锁必须写static
+     */
+    private static Object obj = new Object();
+
     @Override
     public void run() {
-        while (count > 0) {
+        while (true){
+            synchronized (obj){
+                if (count > 0){
+                    System.out.println(Thread.currentThread().getName() + " : " + count);
+                    count--;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * 同步方法：由于同步方法默认的同步监视器是this，继承Thread类的线程必须加static，保证锁唯一
+     * 此时的同步监视器是类本身
+     */
+    private static synchronized void show() {
+
+        if (count > 0) {
             System.out.println(Thread.currentThread().getName() + " : " + count);
             count--;
         }
+
     }
 }
