@@ -53,6 +53,10 @@ public enum SeasonEnum implements info{
         this.code = code;
     }
 
+    public int getCode(){
+        return code;
+    }
+
     @Override
     public void show() {
         System.out.println("这是一个季节:" + seasonName);
@@ -69,8 +73,8 @@ class SeasonEnumTest{
          * xxEnum.对象名.toString(),返回指定对象名
          */
         System.out.println("----------xxEnum.对象名.toString()----------");
-        String springName = SeasonEnum.SPRING.toString();
-        System.out.println(springName);
+        SeasonEnum spring = SeasonEnum.SPRING;
+        System.out.println("spring.toString():" + spring.toString() + ",  code: " + spring.getCode());
 
         /**
          * xxEnum.values()，返回枚举类中数组（所有对象）
